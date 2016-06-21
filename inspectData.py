@@ -1,15 +1,6 @@
 import pandas as pd
 
-df = pd.read_csv("annotation/cleanTable.txt", sep="\t",header=0)
-
-df['FileName']=df['FileName'].str.replace("-","_")
-df['FileName']=df['FileName'].str.replace("%","pct")
-
-df.to_csv("annotation/cleanedTable.csv")
-
-
-df = pd.read_csv("annotation/cleanedTable.csv")
-
+df = pd.read_csv("SysteMCH_Data/annotation/cleanedTable_id.csv")
 
 fileids = df[df["MHCAllele"] == 'A03,A24,B07,B51']["FileName"]
 allMzXMLs = glob.glob("/mnt/Systemhc/Data/PXD001872/*.mzXML")
@@ -19,8 +10,8 @@ for i in fileids:
     res  += [x for x in allMzXMLs if ntpath.basename(x) == i]
 
 
-for i in df["MHCAllele"].unique():
-    tmp = df[df["MHCAllele"] == i]
+for i in df["SampleID"].unique():
+    tmp = df[df["SamleID"] == i]
     files_toProcess = tmp['FileName']
     print "==============================================="
     print files_toProcess
